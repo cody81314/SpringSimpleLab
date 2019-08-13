@@ -56,13 +56,6 @@ public class ValidateRequestAspect {
                             Optional<Validator> validatorOpt =
                                     Optional.ofNullable(parameters[i].getAnnotation(Validator.class));
 
-                            /*
-                            if (validatorOpt.isPresent()) {
-                                Object arg = args[i];
-                                Validator validator = validatorOpt.get();
-                                requestValidator.validateParameter(validator, arg, parameters[i]);
-                            }
-                            */
                             validatorOpt.ifPresent(validator ->
                             		requestValidator.validateParameter(validator, args[i], parameters[i]));
                         }

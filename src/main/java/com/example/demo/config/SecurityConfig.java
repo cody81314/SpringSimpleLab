@@ -47,14 +47,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static List<RequestMatcher> getPublicUrls() {
         List<RequestMatcher> urls = new ArrayList<>();
-//        urls.add(new AntPathRequestMatcher("/auth/**"));
-//        urls.add(new AntPathRequestMatcher("/demo/**"));
-//        urls.add(new AntPathRequestMatcher("/h2/**"));
-//        urls.add(new AntPathRequestMatcher("/favicon.ico"));
+        urls.add(new AntPathRequestMatcher("/auth/**"));
+        urls.add(new AntPathRequestMatcher("/demo/**"));
+        urls.add(new AntPathRequestMatcher("/h2/**"));
+        urls.add(new AntPathRequestMatcher("/favicon.ico"));
         //urls.add(new NegatedRequestMatcher(new AntPathRequestMatcher("/user/**")));
-          urls.add(new NegatedRequestMatcher(new OrRequestMatcher(new AntPathRequestMatcher("/book/**"),new AntPathRequestMatcher("/user/**"))));
-          
-          			
 
         return urls;
     }
@@ -84,8 +81,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/user").hasRole("ADMIN")
                 .antMatchers("/user/**").hasRole("ADMIN")
-                .antMatchers("/book").hasRole("USER")
-                .antMatchers("/book/**").hasRole("USER")
                 .anyRequest().permitAll()
                 .and()
                 // 以下關閉 REST API 用不到的機制

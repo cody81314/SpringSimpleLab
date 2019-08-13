@@ -4,8 +4,6 @@ public class PropertiesConst {
 
     // Cache
     public static final String CACHE_USER_CACHE_TIME_TO_LIVE = "memory.cache.user.cache.time-to-live.seconds";
-    // Book Cache
-    public static final String CACHE_BOOK_CACHE_TIME_TO_LIVE = "memory.cache.book.cache.time-to-live.seconds";
     
     public static final class PropertiesKeyEL {
         // JWT
@@ -21,6 +19,5 @@ public class PropertiesConst {
 
         // Schedule
         public static final String DB_SCHEDULER_CLEAN_UP_LOGOUT_TOKEN_CRON = "${db.scheduler.clean.logout.token.cron}";
-        public static final String DB_SCHEDULER_PRINT_OUT_BOOK_QUANTITY_CRON = "${db.scheduler.print.book.quantity.cron}";
     }
 }

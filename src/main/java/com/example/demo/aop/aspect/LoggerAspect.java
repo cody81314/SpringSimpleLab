@@ -26,8 +26,6 @@ import static com.example.demo.constant.AOPConst.POINTCUT_SERVICELAYER;
 @Order(LOGGER_ORDER)
 public class LoggerAspect {
     private static final Logger LOGGER = LoggerFactory.getLogger(LoggerAspect.class);
-
-    LoggerAspectCommonMethod loggerACM = new LoggerAspectCommonMethod();
     
     @Before(value = POINTCUT_SERVICELAYER)
     public void logBeforeService(JoinPoint joinPoint) {
@@ -65,41 +63,5 @@ public class LoggerAspect {
 
         return result;
     }
-    
-    /*====== For Controller ===*/
-    /*-------------------------------------*/
-    @Around(value = POINTCUT_CONTROLLERLAYER)
-    public Object logAroundController(ProceedingJoinPoint jp) throws Throwable {       
-        String methodName = loggerACM.getMethodName(jp);
-        Map<String,Object>  map = loggerACM.getServiceCostTime(jp);
-        LOGGER.info("{}() 所花費時間: {}", methodName, map.get("time"));
-
-        return map.get("result");
-    }
-    
-    @Before(value = POINTCUT_CONTROLLERLAYER)
-    public void logBeforeController(JoinPoint joinPoint) {
-    	String methodName = loggerACM.getMethodName((ProceedingJoinPoint)joinPoint);
-        String args = loggerACM.getargs(joinPoint);    	
-        LOGGER.info("{}({}) 開始執行...", methodName, args);
-    }
-    
-    @After(value = POINTCUT_CONTROLLERLAYER)
-    public void logAfterController(JoinPoint joinPoint) {    	
-        String methodName = loggerACM.getMethodName((ProceedingJoinPoint)joinPoint);
-        LOGGER.info("{}() 執行結束...", methodName);
-    }
-    /*-------------------------------------*/
-    
-    
-    @AfterThrowing(throwing="rEx", pointcut="execution(* com.example.demo.service..*.*(..))")
-	public void showRollbackMessage(JoinPoint joinPoint,Exception rEx){
-		LOGGER.error("{}()拋出異常狀況:  {}", joinPoint.getSignature().getName(),rEx.getLocalizedMessage());
-		//LOGGER.error("注意!!: 若之前有執行新增或變動,都會被RollBack");
-	}
-	
-    
-
-    
     
 }
